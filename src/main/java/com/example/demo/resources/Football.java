@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import javax.net.ssl.SSLException;
 import java.util.List;
 
 @RestController
@@ -18,13 +19,14 @@ import java.util.List;
 public class Football {
 
     @Autowired
-    private WebClient.Builder webClientBuilder;
+    private WebClient webClientBuilder;
 
-    private final String BASE_URL = "https://apifootball.com/documentation/";
+    private final String BASE_URL = "https://apiv2.apifootball.com/";
 
     @GetMapping("/countries")
-    public List<Country> getCountries() {
-        Mono<List<Country>> response = webClientBuilder.build().get()
+    public List<Country> getCountries() throws SSLException {
+
+        Mono<List<Country>> response = webClientBuilder.get()
                 .uri(uriBuilder -> uriBuilder.path(BASE_URL)
                 .queryParam("APIKey", "9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978")
                 .queryParam("action","get_countries")
@@ -37,7 +39,7 @@ public class Football {
 
     @GetMapping("/leagues")
     public List<League> getLeagues(@RequestParam(name = "country_id") String countryId) {
-        Mono<List<League>> response = webClientBuilder.build().get()
+        Mono<List<League>> response = webClientBuilder.get()
                 .uri(uriBuilder -> uriBuilder.path(BASE_URL)
                         .queryParam("APIKey", "9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978")
                         .queryParam("action","get_leagues")
@@ -52,7 +54,7 @@ public class Football {
     @GetMapping("/team")
     public List<League> getTeams(@RequestParam(required = false, name = "team_id") String teamId,
                                  @RequestParam(required = false, name = "league_id") String leagueId) {
-        Mono<List<League>> response = webClientBuilder.build().get()
+        Mono<List<League>> response = webClientBuilder.get()
                 .uri(uriBuilder -> uriBuilder.path(BASE_URL)
                         .queryParam("APIKey", "9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978")
                         .queryParam("action","get_teams")
