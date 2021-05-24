@@ -21,14 +21,14 @@ public class Football {
     @Autowired
     private WebClient webClientBuilder;
 
-    private final String BASE_URL = "https://apiv2.apifootball.com/";
+    private final String BASE_URL = "apiv2.apifootball.com/";
 
     @GetMapping("/countries")
     public List<Country> getCountries() throws SSLException {
 
         Mono<List<Country>> response = webClientBuilder.get()
                 .uri(uriBuilder -> uriBuilder.path(BASE_URL)
-                .queryParam("APIKey", "9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978")
+                .queryParam("APIkey", "9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978")
                 .queryParam("action","get_countries")
                 .build())
                 .retrieve()
@@ -41,7 +41,7 @@ public class Football {
     public List<League> getLeagues(@RequestParam(name = "country_id") String countryId) {
         Mono<List<League>> response = webClientBuilder.get()
                 .uri(uriBuilder -> uriBuilder.path(BASE_URL)
-                        .queryParam("APIKey", "9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978")
+                        .queryParam("APIkey", "9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978")
                         .queryParam("action","get_leagues")
                         .queryParam("country_id",countryId)
                         .build())
@@ -56,7 +56,7 @@ public class Football {
                                  @RequestParam(required = false, name = "league_id") String leagueId) {
         Mono<List<League>> response = webClientBuilder.get()
                 .uri(uriBuilder -> uriBuilder.path(BASE_URL)
-                        .queryParam("APIKey", "9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978")
+                        .queryParam("APIkey", "9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978")
                         .queryParam("action","get_teams")
                         .queryParam("team_id",teamId)
                         .queryParam("league_id",leagueId)

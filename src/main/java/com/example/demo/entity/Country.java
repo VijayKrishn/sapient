@@ -8,12 +8,10 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-@AllArgsConstructor
 public class Country {
 
     @Id
-    Integer country_id;
-
+    String country_id;
     String country_name;
 
 

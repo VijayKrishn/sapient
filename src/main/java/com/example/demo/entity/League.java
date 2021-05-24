@@ -10,8 +10,8 @@ import javax.persistence.Id;
 public class League {
 
     @Id
-    private Integer league_id;
+    private String league_id;
     private String league_name;
     private String country_name;
-    private Integer country_id;
+    private String country_id;
 }
